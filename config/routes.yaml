@@ -1,0 +1,4 @@
+login:
+    path: /api/hello
+    methods: [GET]
+    controller: App\Action\ExampleAction

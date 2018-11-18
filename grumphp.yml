@@ -1,0 +1,88 @@
+parameters:
+    process_timeout: 120
+    tasks:
+        #  Checks code coverage is above minimum
+        clover_coverage:
+            clover_file: var/coverage.xml
+            level: 1
+            metadata: { priority: 0 }
+
+        # Checks composer.json and composer.lock are valid
+        composer:
+            no_local_repository: true
+            no_check_publish: true
+
+        # Clears the cache
+        composer_script:
+            script: auto-scripts
+
+        # Checks ORM mappings are valid
+        doctrine_orm:
+            skip_sync: true
+
+        # Blacklists keywords from being commited
+        git_blacklist:
+            keywords:
+                - "die("
+                - "var_dump("
+                - "exit;"
+
+        # Lints JSON files
+        jsonlint:
+            detect_key_conflicts: false
+
+        # Static analyzer
+        phan:
+            config_file: phan-config.php
+            output_mode: text
+            output: null
+            triggered_by: [php]
+
+        # Code sniffer
+        phpcs:
+            standard: 'Doctrine'
+            whitelist_patterns: [/^src\/(.*)/]
+            ignore_patterns:
+              - src\/App\/Kernel.php
+              - cli-config.php
+            triggered_by: [php]
+
+        # Static analyzer
+        psalm:
+            ignore_patterns: [src\/App\/Kernel.php]
+            config: psalm.xml
+
+        # Lints PHP files
+        phplint:
+            exclude: ['vendor', 'var']
+
+        # Checks for possible bugs and unnecessary complexity
+        phpmd:
+            exclude: ['vendor', 'var', 'public', 'tests', 'migrations']
+            ruleset: ['cleancode', 'codesize', 'controversial', 'design', 'naming', 'unusedcode']
+
+        # Parses the code to search for possible bugs and unnecessary complexity
+        phpparser:
+            ignore_patterns: ['index.php', 'config.php', 'Version*.php', '*Test.php']
+            visitors:
+                declare_strict_types: ~
+                never_use_else: ~
+                no_exit_statements: ~
+
+        # Discovers bugs in the code without running it
+        phpstan:
+            ignore_patterns: ['var', 'web', 'app', 'vendor', 'migrations', 'tests']
+            level: 7
+
+        # Runs unit tests
+        phpunit:
+            always_execute: true
+            metadata: { priority: 100 }
+
+        # Checks composer.lock file for known security vulnerabilities
+        securitychecker: ~
+
+        # Lints all yaml files
+        yamllint:
+            parse_constant: true
+            parse_custom_tags: true
