@@ -29,6 +29,7 @@ parameters:
         git_blacklist:
             keywords:
                 - "die("
+                - "die;"
                 - "var_dump("
                 - "exit;"
 
