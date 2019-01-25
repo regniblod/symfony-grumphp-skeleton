@@ -2,25 +2,30 @@ parameters:
     process_timeout: 120
     tasks:
         #  Checks code coverage is above minimum
+        # https://github.com/phpro/grumphp/blob/master/doc/tasks/clover_coverage.md
         clover_coverage:
             clover_file: var/coverage.xml
             level: 1
             metadata: { priority: 0 }
 
         # Checks composer.json and composer.lock are valid
+        # https://github.com/phpro/grumphp/blob/master/doc/tasks/composer.md
         composer:
             no_local_repository: true
             no_check_publish: true
 
         # Clears the cache
+        # https://github.com/phpro/grumphp/blob/master/doc/tasks/composer_script.md
         composer_script:
             script: auto-scripts
 
         # Checks ORM mappings are valid
+        # https://github.com/phpro/grumphp/blob/master/doc/tasks/doctrine_orm.md
         doctrine_orm:
             skip_sync: true
 
         # Blacklists keywords from being commited
+        # https://github.com/phpro/grumphp/blob/master/doc/tasks/git_blacklist.md
         git_blacklist:
             keywords:
                 - "die("
@@ -28,10 +33,12 @@ parameters:
                 - "exit;"
 
         # Lints JSON files
+        # https://github.com/phpro/grumphp/blob/master/doc/tasks/jsonlint.md
         jsonlint:
             detect_key_conflicts: false
 
         # Static analyzer
+        # https://github.com/phpro/grumphp/blob/master/doc/tasks/phan.md
         phan:
             config_file: phan-config.php
             output_mode: text
@@ -39,6 +46,7 @@ parameters:
             triggered_by: [php]
 
         # Code sniffer
+        # https://github.com/phpro/grumphp/blob/master/doc/tasks/phpcs.md
         phpcs:
             standard: 'Doctrine'
             whitelist_patterns: [/^src\/(.*)/]
@@ -48,41 +56,40 @@ parameters:
             triggered_by: [php]
 
         # Static analyzer
+        # https://github.com/phpro/grumphp/blob/master/doc/tasks/psalm.md
         psalm:
             ignore_patterns: [src\/App\/Kernel.php]
             config: psalm.xml
 
         # Lints PHP files
+        # https://github.com/phpro/grumphp/blob/master/doc/tasks/phplint.md
         phplint:
             exclude: ['vendor', 'var']
 
         # Checks for possible bugs and unnecessary complexity
+        # https://github.com/phpro/grumphp/blob/master/doc/tasks/phpmnd.md
         phpmd:
             exclude: ['vendor', 'var', 'public', 'tests', 'migrations']
             ruleset: ['cleancode', 'codesize', 'controversial', 'design', 'naming', 'unusedcode']
 
-        # Parses the code to search for possible bugs and unnecessary complexity
-        phpparser:
-            ignore_patterns: ['index.php', 'config.php', 'Version*.php', '*Test.php']
-            visitors:
-                declare_strict_types: ~
-                never_use_else: ~
-                no_exit_statements: ~
-
         # Discovers bugs in the code without running it
+        # https://github.com/phpro/grumphp/blob/master/doc/tasks/phpstan.md
         phpstan:
             ignore_patterns: ['var', 'web', 'app', 'vendor', 'migrations', 'tests']
             level: 7
 
         # Runs unit tests
+        # https://github.com/phpro/grumphp/blob/master/doc/tasks/phpunit.md
         phpunit:
             always_execute: true
             metadata: { priority: 100 }
 
         # Checks composer.lock file for known security vulnerabilities
+        # https://github.com/phpro/grumphp/blob/master/doc/tasks/securitychecker.md
         securitychecker: ~
 
         # Lints all yaml files
+        # https://github.com/phpro/grumphp/blob/master/doc/tasks/yamllint.md
         yamllint:
             parse_constant: true
             parse_custom_tags: true
