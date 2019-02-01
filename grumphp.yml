@@ -94,3 +94,8 @@ parameters:
         yamllint:
             parse_constant: true
             parse_custom_tags: true
+
+        # Lints all xml files
+        # https://github.com/phpro/grumphp/blob/master/doc/tasks/xmllint.md
+        xmllint:
+            triggered_by: ['xml']
